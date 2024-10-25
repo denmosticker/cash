@@ -151,69 +151,10 @@
     }
   </style>
 </head>
-  <div class="login-form" id="loginPage">
-    <h2>PAYHERO</h2>
-    <form onsubmit="handleLogin(event)">
-      <input type="text" id="username" placeholder="create your username" required>
-      <input type="password" id="password" placeholder="Enter new password" required>
-      <button type="submit">Signup</button>
-    </form>
-    <div class="social-signups">
-      <button onclick="window.location.href='https://accounts.google.com/signup'">Sign up with Google</button>
-      <button onclick="window.location.href='https://telegram.org/auth'">Sign up with Telegram</button>
-    </div>
-  </div>
-  <div class="container" id="bonusPage">
-    <h2>HERO DASHBOARD</h2>
-    <div class="button-group">
-      <button class="bonus" onclick="showBonusModal()"> Free 300 Ksh</button>
-      <button class="button" onclick="alert('Coming soon')">Buy Airtime</button>
-      <button class="button" onclick="alert('Coming soon')">Pay Bills</button>
-      <button class="button" onclick="showWithdrawModal()">Withdraw bonus</button>
-    </div>
-  </div>
-  <!-- Modals and Footer... -->
+<body>
+  <!-- Your existing HTML structure -->
   <script>
-    async function handleLogin(event) {
-      event.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const response = await fetch('/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-      });
-      const result = await response.json();
-      if (response.ok) {
-        alert(result.message);
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('bonusPage').style.display = 'block';
-      }
-    }
-
-    async function handleLogin(event) {
-      event.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-      });
-      const result = await response.json();
-      if (result.success) {
-        document.getElementById('loginPage').style.display = 'none';
-        document.getElementById('bonusPage').style.display = 'block';
-      } else {
-        alert(result.message);
-      }
-    }
-
-    // Existing JavaScript functions...
+    // Your existing JavaScript code
   </script>
 </body>
 </html>
